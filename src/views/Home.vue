@@ -1,18 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HomeHeader></HomeHeader>
+    <p>Normalny tekst</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HomeHeader from '@/components/HomeHeader.vue';
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    HomeHeader
+  },
+  created: () => {
+    console.log('`Home` created!');
+  },
+  mounted: () => {
+    console.log('`Home` mounted!');
+  },
+  updated: () => {
+    console.log('`Home` updated!');
+  },
+  destroyed: () => {
+    console.log('`Home` destroyed!');
   }
-}
+};
 </script>

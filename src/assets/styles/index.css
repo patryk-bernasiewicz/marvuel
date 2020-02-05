@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap&subset=latin-ext');
+
+@font-face {
+  font-family: 'Marvel';
+  src: url('~@/assets/fonts/Marvel-Regular.ttf');
+  src: url('~@/assets/fonts/Marvel-Regular.ttf') format('truetype'),
+    url('~@/assets/fonts/Marvel-Regular.woff') format('woff'),
+    url('~@/assets/fonts/Marvel-Regular.woff2') format('woff2');
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+html * {
+  box-sizing: inherit;
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(16px + 3.49 * ((100vw - 320px) / 767));
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+.marvuel {
+  font-family: 'Marvel', sans-serif;
+  text-transform: uppercase;
+  vertical-align: baseline;
+}
+.marvuel b {
+  font-size: 1.25em;
+  position: relative;
+  top: -0.015em;
+}
