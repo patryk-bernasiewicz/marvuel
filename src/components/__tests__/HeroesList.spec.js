@@ -4,27 +4,34 @@ import { heroes } from '../../mock-data';
 
 describe('`HeroesList` component', () => {
   let wrapper;
-  let props;
+  let store;
+
+  const stubs = {
+    directives: {
+      'infinite-scroll': () => null
+    },
+    computed: {
+      store: () => ({ ...store })
+    }
+  };
 
   const mount = () => {
     if (!wrapper) {
-      wrapper = shallowMount(HeroesList, {
-        propsData: { ...props }
-      });
+      wrapper = shallowMount(HeroesList, stubs);
     }
     return wrapper;
   };
 
   beforeEach(() => {
     wrapper = null;
-    props = { heroes: [...heroes] };
+    store = { heroes: [...heroes] };
   });
 
   it('renders without exploding', () => {
     expect(mount().exists()).toBe(true);
   });
 
-  describe('when `heroes` prop is present and NOT empty', () => {
+  describe('when `heroes` is present in state and NOT empty', () => {
     it('renders a list with list items', () => {
       const list = mount().find('ul.heroes-list');
 
@@ -33,9 +40,9 @@ describe('`HeroesList` component', () => {
     });
   });
 
-  describe('when `heroes` props is present and empty', () => {
+  describe('when `heroes` is present in state and empty', () => {
     it('renders a `p` element with message "No heroes to display!"', () => {
-      props = { heroes: [] };
+      store = { heroes: [] };
       const message = mount().find('.heroes-message');
       expect(message.exists()).toBe(true);
       expect(message.find('p').exists()).toBe(true);

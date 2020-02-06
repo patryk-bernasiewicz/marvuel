@@ -14,6 +14,10 @@
         <heroes-list-item :hero="hero" />
       </li>
     </ul>
+
+    <p v-if="!store.heroes.length" class="heroes-message">
+      No heroes to display!
+    </p>
   </div>
 </template>
 
