@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <HomeHeader />
-    <HeroesList />
+    <main class="my-4">
+      <HeroesList />
+    </main>
   </div>
 </template>
 

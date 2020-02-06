@@ -1,19 +1,23 @@
 <template>
-  <div class="heroes container mx-auto">
+  <div class="heroes container mx-auto px-2">
     <ul class="heroes-list flex flex-wrap">
       <li
-        class="flex flex-wrap w-1/3 p-2"
+        class="flex flex-wrap w-full sm:w-1/2 md:w-1/3 p-2"
         v-for="hero of heroes"
         :key="hero.id"
       >
         <div
-          class="hero flex flex-grow h-32 rounded shadow-md p-2 relative overflow-hidden"
+          class="hero flex flex-grow h-48 rounded shadow-md hover:shadow-lg relative overflow-hidden"
         >
-          {{ hero.name }}
+          <div
+            class="hero-description flex justify-center items-center p-2 w-full h-full z-10 text-white"
+          >
+            <h3 class="hero-name text-lg font-extrabold">{{ hero.name }}</h3>
+          </div>
           <img
             :src="getHeroThumbnail(hero)"
             :alt="hero.name"
-            class="hero-image absolute inset-0 h-full w-full"
+            class="hero-image absolute inset-0 h-full w-full z-0"
           />
         </div>
       </li>
@@ -34,13 +38,33 @@ export default {
 </script>
 
 <style scoped>
-.hero-image {
-  object-fit: cover;
+.hero {
+  @apply transition-shadow duration-300 ease-out;
+}
 
+.hero-image {
+  @apply transition-transform duration-300 ease-out;
+
+  object-fit: cover;
   transform: scale(1.1);
 }
 .hero:hover .hero-image {
   transform: scale(1);
+}
+
+.hero-description {
+  @apply transition-opacity duration-300 ease-out;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (min-width: 768px) {
+  .hero-description {
+    opacity: 0;
+  }
+  .hero:hover .hero-description {
+    opacity: 1;
+  }
 }
 
 @media all and (-ms-high-contrast: none) {
