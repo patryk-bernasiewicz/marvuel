@@ -28,33 +28,36 @@ export default {
   },
   actions: {
     async FETCH_HEROES({ commit, state }) {
-      console.log('[heroes.js] FETCH_HEROES');
-      let page = state.page;
+      return new Promise(async resolve => {
+        let page = state.page;
 
-      if (page >= state.totalPages) {
-        commit('SET_LOADING', true);
+        if (page >= state.totalPages) {
+          commit('SET_LOADING', true);
 
-        const cachedHeroes = localStorage.getItem('heroes');
-        if (cachedHeroes) {
-          const cache = JSON.parse(cachedHeroes);
-          if (cache[`page-${page}`]) {
-            commit('STORE_HEROES', { heroes: cache[`page-${page}`] });
-            commit('SET_LOADING', false);
+          const cachedHeroes = localStorage.getItem('heroes');
+          if (cachedHeroes) {
+            const cache = JSON.parse(cachedHeroes);
+            if (cache[`page-${page}`]) {
+              commit('STORE_HEROES', { heroes: cache[`page-${page}`] });
+              commit('SET_LOADING', false);
+              commit('NEXT_PAGE');
+              resolve();
+              return;
+            }
+          }
+
+          try {
+            const heroes = await api.fetchHeroes(page);
+            commit('STORE_HEROES', heroes.results);
             commit('NEXT_PAGE');
-            return;
+          } catch (err) {
+            commit('SET_ERROR', err);
+          } finally {
+            commit('SET_LOADING', false);
+            resolve();
           }
         }
-
-        try {
-          const heroes = await api.fetchHeroes(page);
-          commit('STORE_HEROES', heroes.results);
-          commit('NEXT_PAGE');
-        } catch (err) {
-          commit('SET_ERROR', err);
-        } finally {
-          commit('SET_LOADING', false);
-        }
-      }
+      });
     }
   }
 };

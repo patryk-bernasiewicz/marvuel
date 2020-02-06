@@ -2,11 +2,7 @@
   <div class="heroes">
     <HomeHeader />
     <main class="my-4">
-      <HeroesList
-        v-if="!store.isLoading && !store.error && store.heroes.length"
-        :heroes="store.heroes"
-        @loadMore="loadMore"
-      />
+      <HeroesList />
 
       <div v-if="store.isLoading" class="text-lg font-extrabold">
         Heroes are coming...
@@ -30,14 +26,6 @@ export default {
   components: {
     HomeHeader,
     HeroesList
-  },
-  methods: {
-    loadMore() {
-      this.$store.dispatch('FETCH_HEROES');
-    }
-  },
-  created() {
-    this.$store.dispatch('FETCH_HEROES');
   },
   computed: {
     store: function() {
