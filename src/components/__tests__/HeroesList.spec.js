@@ -25,7 +25,7 @@ describe('`HeroesList` component', () => {
   });
 
   describe('when `heroes` prop is present and NOT empty', () => {
-    it('renders a list with .hero list items', () => {
+    it('renders a list with list items', () => {
       const list = mount().find('ul.heroes-list');
 
       expect(list.exists()).toBe(true);
