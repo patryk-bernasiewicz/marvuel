@@ -1,5 +1,5 @@
 <template>
-  <div class="header-wrapper relative overflow-hidden">
+  <header class="header-wrapper relative overflow-hidden">
     <div
       class="header-content container mx-auto flex items-center justify-center h-full relative z-10"
     >
@@ -40,11 +40,11 @@
       <img
         src="../assets/img/header_home/1920_header_home.jpg"
         alt="Comic book background"
-        class="header-image h-full w-full absolute inset-0"
+        class="header-image absolute inset-0 h-full w-full"
         loading="lazy"
       />
     </picture>
-  </div>
+  </header>
 </template>
 
 <style scoped>
@@ -120,13 +120,13 @@
   }
 
   .home-header-image {
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    height: auto;
+
     min-width: 100%;
+    max-width: 10000%;
+    height: auto;
   }
 }
 </style>
