@@ -1,6 +1,6 @@
 <template>
   <div class="heroes container mx-auto px-2">
-    <ul class="heroes-list flex flex-wrap">
+    <ul v-if="heroes.length" class="heroes-list flex flex-wrap">
       <li
         class="flex flex-wrap w-full sm:w-1/2 md:w-1/3 p-2"
         v-for="hero of heroes"
@@ -22,14 +22,20 @@
         </div>
       </li>
     </ul>
+    <div v-else class="heroes-message">
+      <p class="text-lg font-extrabold">No heroes to display!</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { heroes } from '../mock-data';
-
 export default {
-  data: () => ({ heroes }),
+  props: {
+    heroes: {
+      type: Array,
+      required: true
+    }
+  },
   methods: {
     getHeroThumbnail: ({ thumbnail: { path, extension } }) =>
       `${path}.${extension}`
