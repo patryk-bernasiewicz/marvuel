@@ -1,29 +1,19 @@
 <template>
   <div class="home">
-    <HomeHeader></HomeHeader>
-    <p>Normalny tekst</p>
+    <HomeHeader />
+    <HeroesList />
   </div>
 </template>
 
 <script>
 import HomeHeader from '@/components/HomeHeader.vue';
+import HeroesList from '@/components/HeroesList.vue';
 
 export default {
-  name: 'home',
+  name: 'heroes',
   components: {
-    HomeHeader
-  },
-  created: () => {
-    console.log('`Home` created!');
-  },
-  mounted: () => {
-    console.log('`Home` mounted!');
-  },
-  updated: () => {
-    console.log('`Home` updated!');
-  },
-  destroyed: () => {
-    console.log('`Home` destroyed!');
+    HomeHeader,
+    HeroesList
   }
 };
 </script>
