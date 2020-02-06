@@ -1,4 +1,4 @@
-import { heroes } from '../../mock-data';
+import api from '../../api/heroes';
 
 export default {
   state: {
@@ -6,30 +6,55 @@ export default {
     isLoading: false,
     error: null,
     page: 1,
-    total: null
+    totalPages: null
   },
   getters: {},
   mutations: {
-    STORE_HEROES: (state, { heroes, total = 20 }) => {
-      state.heroes = [...state.heroes, ...heroes];
-      state.total = total;
+    STORE_HEROES: (state, heroes) => {
+      heroes.forEach(hero => state.heroes.push(hero));
     },
     SET_LOADING: (state, loading) => {
       state.isLoading = loading;
     },
     SET_ERROR(state, { error }) {
-      console.error('Error!', error);
       state.error = error;
+    },
+    NEXT_PAGE(state) {
+      state.page++;
+    },
+    SET_TOTAL_PAGES(state, total) {
+      state.totalPages = total;
     }
   },
   actions: {
-    async FETCH_HEROES({ commit }) {
-      commit('SET_LOADING', true);
+    async FETCH_HEROES({ commit, state }) {
+      console.log('[heroes.js] FETCH_HEROES');
+      let page = state.page;
 
-      setTimeout(() => {
-        commit('STORE_HEROES', { heroes });
-        commit('SET_LOADING', false);
-      }, 2000);
+      if (page >= state.totalPages) {
+        commit('SET_LOADING', true);
+
+        const cachedHeroes = localStorage.getItem('heroes');
+        if (cachedHeroes) {
+          const cache = JSON.parse(cachedHeroes);
+          if (cache[`page-${page}`]) {
+            commit('STORE_HEROES', { heroes: cache[`page-${page}`] });
+            commit('SET_LOADING', false);
+            commit('NEXT_PAGE');
+            return;
+          }
+        }
+
+        try {
+          const heroes = await api.fetchHeroes(page);
+          commit('STORE_HEROES', heroes.results);
+          commit('NEXT_PAGE');
+        } catch (err) {
+          commit('SET_ERROR', err);
+        } finally {
+          commit('SET_LOADING', false);
+        }
+      }
     }
   }
 };

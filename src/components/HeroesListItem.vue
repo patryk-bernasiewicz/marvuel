@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero cursor-pointer flex flex-grow h-48 rounded shadow-md hover:shadow-lg relative overflow-hidden"
+    class="hero cursor-pointer flex flex-grow h-64 rounded shadow-md hover:shadow-lg relative overflow-hidden"
   >
     <div
       class="hero-description flex justify-center items-center p-2 w-full h-full z-10 text-white"

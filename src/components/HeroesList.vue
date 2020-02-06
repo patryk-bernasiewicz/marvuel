@@ -22,10 +22,16 @@ export default {
   components: {
     HeroesListItem
   },
+  data: () => ({ busy: false }),
   props: {
     heroes: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    loadMore() {
+      this.$emit('loadMore');
     }
   }
 };

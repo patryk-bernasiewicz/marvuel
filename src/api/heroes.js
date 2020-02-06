@@ -1,8 +1,14 @@
-import heroes from '../mock-data';
-const { VUE_APP_API_URL } = process.env;
+import { heroes } from '../mock-data';
 
-console.log(VUE_APP_API_URL);
-
-export default {
-  fetchPage: page => Promise.resolve({ page, results: heroes })
+const api = {
+  fetchHeroes: (page = 1) => {
+    console.log('[api/heroes.js] fetchPage', page);
+    const results = heroes.map(hero => {
+      hero = { ...hero, id: hero.id.toString() + page };
+      return hero;
+    });
+    return Promise.resolve({ results });
+  }
 };
+
+export default api;

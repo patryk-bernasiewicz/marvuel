@@ -5,6 +5,7 @@
       <HeroesList
         v-if="!store.isLoading && !store.error && store.heroes.length"
         :heroes="store.heroes"
+        @loadMore="loadMore"
       />
 
       <div v-if="store.isLoading" class="text-lg font-extrabold">
@@ -30,7 +31,11 @@ export default {
     HomeHeader,
     HeroesList
   },
-  methods: {},
+  methods: {
+    loadMore() {
+      this.$store.dispatch('FETCH_HEROES');
+    }
+  },
   created() {
     this.$store.dispatch('FETCH_HEROES');
   },
