@@ -6,7 +6,8 @@ export default {
     isLoading: false,
     error: null,
     page: 1,
-    totalPages: null
+    totalPages: null,
+    end: false
   },
   getters: {},
   mutations: {
@@ -28,12 +29,13 @@ export default {
       console.log('FETCH_PAGE_ERROR', state.page);
       state.isLoading = false;
       state.error = error;
-    }
+    },
+    END_OF_PAGES: state => (state.end = true)
   },
   actions: {
     async FETCH_HEROES({ commit, state }) {
-      // exit if already loading something
-      if (state.isLoading) {
+      // exit if already loading something or if we reached last page
+      if (state.isLoading || state.end || state.page >= state.totalPages) {
         return;
       }
 
@@ -46,6 +48,10 @@ export default {
 
         if (data) {
           commit('FETCH_PAGE_SUCCESS', data);
+
+          if (state.page >= state.totalPages) {
+            commit('END_OF_PAGES');
+          }
         } else {
           await api.clearData();
           commit(
