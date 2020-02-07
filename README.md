@@ -1,29 +1,25 @@
-# marvuel
+# MarVuel
 
-## Project setup
+## Instalacja
+
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Serwowanie
+
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Budowanie i minifikacja
+
 ```
 yarn build
 ```
 
-### Run your unit tests
+### Testy jednostkowe
+
 ```
 yarn test:unit
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
