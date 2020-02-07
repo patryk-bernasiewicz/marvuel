@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="`/${hero.id}`"
     class="hero cursor-pointer flex flex-grow h-64 rounded shadow-md hover:shadow-lg relative overflow-hidden"
   >
     <div
@@ -16,7 +17,7 @@
       class="hero-image absolute inset-0 h-full w-full z-0"
       :class="{ 'hero-image-loaded': imageLoaded }"
     />
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -81,8 +82,11 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%) scale(1.1);
 
+    min-height: 100%;
+    max-height: 150%;
     min-width: 100%;
-    max-width: 10000%;
+    max-width: 150%;
+    width: auto;
     height: auto;
   }
   .hero:hover .hero-image {

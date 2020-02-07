@@ -9,7 +9,7 @@
         </h2>
         <p>
           We'll help you discover our magnificent series by letting you browse
-          through a curated list of fans' favorites
+          through a curated list of fans' favorite characters.
         </p>
       </div>
     </div>
@@ -53,6 +53,7 @@
   min-height: 200px;
   max-height: 600px;
   font-size: 0;
+  text-align: center;
 }
 .header-wrapper::after {
   content: '';

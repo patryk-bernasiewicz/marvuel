@@ -15,6 +15,7 @@ export default {
   mutations: {
     FETCH_PAGE_PENDING: state => {
       state.isLoading = true;
+      state.error = null;
     },
     FETCH_PAGE_SUCCESS: (state, data) => {
       data.results.forEach(hero => state.heroes.push(hero));
@@ -33,16 +34,12 @@ export default {
   },
   actions: {
     async FETCH_HEROES({ commit, state }) {
-      console.log('[store/modules/heroes.js] FETCH_HEROES');
-
       // exit if already loading something or if we reached last page
       if (state.isLoading || state.end) {
         return;
       }
 
       commit('FETCH_PAGE_PENDING');
-
-      await new Promise(resolve => setTimeout(() => resolve(), 5000));
 
       try {
         const data = await api.fetchHeroes(state.page);

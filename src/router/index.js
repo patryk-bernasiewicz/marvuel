@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Heroes from '../views/Heroes.vue';
+import Heroes from '@/views/Heroes.vue';
+import HeroDetails from '@/views/HeroDetails.vue';
 
 Vue.use(VueRouter);
 
@@ -8,17 +9,14 @@ export const routes = [
   {
     path: '/',
     name: 'Heroes',
-    component: Heroes
+    component: Heroes,
+    inNav: true
+  },
+  {
+    path: '/:id',
+    name: 'Hero Details',
+    component: HeroDetails
   }
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({

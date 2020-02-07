@@ -22,6 +22,6 @@
 import { routes } from '../router';
 
 export default {
-  data: () => ({ routes })
+  data: () => ({ routes: routes.filter(route => route.inNav) })
 };
 </script>

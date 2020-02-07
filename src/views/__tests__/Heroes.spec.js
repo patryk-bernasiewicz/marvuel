@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import Heroes from '@/views/Heroes.vue';
-import { heroes } from '../../mock-data';
 
 // Child components
 import HomeHeader from '@/components/HomeHeader.vue';

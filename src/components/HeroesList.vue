@@ -8,7 +8,7 @@
       infinite-scroll-throttle-delay="450"
     >
       <li
-        class="flex flex-wrap w-full sm:w-1/2 md:w-1/4 p-2"
+        class="flex flex-wrap w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2"
         v-for="hero of store.heroes"
         :key="hero.id"
       >

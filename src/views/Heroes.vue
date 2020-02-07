@@ -6,7 +6,8 @@
       <HeroesList />
 
       <div v-if="store.error" class="text-lg font-extrabold text-red-600">
-        Heroes are unreachable at the moment.
+        Heroes are unreachable at the moment.<br />
+        {{ store.error }}
       </div>
     </main>
   </div>
