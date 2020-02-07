@@ -115,10 +115,7 @@ export default {
      * Fetch Hero's last 5 comics
      */
     FETCH_COMICS({ commit }, heroId) {
-      console.log('[store/modules/hero.js] FETCH_COMICS');
       return new Promise(async (resolve, reject) => {
-        console.log('[store/modules/hero.js] FETCH_COMICS in promise');
-
         commit('FETCH_COMICS_PENDING');
 
         try {

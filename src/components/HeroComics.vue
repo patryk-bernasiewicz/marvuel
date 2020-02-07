@@ -64,9 +64,6 @@ export default {
       return this.$store.getters.getComics;
     }
   },
-  mounted() {
-    console.log(this.getComics);
-  },
   store
 };
 </script>
