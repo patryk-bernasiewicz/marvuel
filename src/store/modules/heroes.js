@@ -2,17 +2,32 @@ import api from '../../api/heroes';
 
 import conf from '@/_conf';
 
+const initialState = {
+  heroes: [],
+  isLoading: false,
+  error: null,
+  page: 1,
+  totalPages: null,
+  end: false,
+  search: ''
+};
+
 export default {
-  state: {
-    heroes: [],
-    isLoading: false,
-    error: null,
-    page: 1,
-    totalPages: null,
-    end: false
-  },
+  state: initialState,
   getters: {},
   mutations: {
+    RESET_HEROES: state => {
+      state.heroes = [];
+      state.isLoading = false;
+      state.error = null;
+      state.page = 1;
+      state.totalPages = null;
+      state.end = false;
+      state.search = '';
+    },
+    SET_SEARCH: (state, search) => {
+      state.search = search;
+    },
     FETCH_PAGE_PENDING: state => {
       state.isLoading = true;
       state.error = null;
@@ -33,16 +48,26 @@ export default {
     END_OF_PAGES: state => (state.end = true)
   },
   actions: {
-    async FETCH_HEROES({ commit, state }) {
+    RESET_HEROES({ commit }) {
+      return new Promise(resolve => {
+        commit('RESET_HEROES');
+        resolve();
+      });
+    },
+    async FETCH_HEROES({ commit, state }, search = '') {
       // exit if already loading something or if we reached last page
       if (state.isLoading || state.end) {
         return;
       }
 
+      if (search) {
+        commit('SET_SEARCH', search);
+      }
+
       commit('FETCH_PAGE_PENDING');
 
       try {
-        const data = await api.fetchHeroes(state.page);
+        const data = await api.fetchHeroes(state.page, state.search);
 
         if (data) {
           commit('FETCH_PAGE_SUCCESS', data);

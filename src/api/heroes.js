@@ -7,26 +7,36 @@ const api = {
   /**
    * Fetch All hero data
    */
-  fetchHeroes: (page = 1) => {
+  fetchHeroes: (page = 1, search) => {
     const limit = conf.listItems;
     const offset = (page - 1) * conf.listItems;
 
-    const _cache = localStorage[`characters-${page}`];
-    if (_cache) {
-      return Promise.resolve(JSON.parse(_cache));
+    if (!search) {
+      const _cache = localStorage[`characters-${page}`];
+      if (_cache) {
+        return Promise.resolve(JSON.parse(_cache));
+      }
+    }
+
+    const options = {
+      params: {
+        apikey: API_KEY,
+        limit,
+        offset
+      }
+    };
+
+    if (search.length) {
+      options.params.nameStartsWith = search;
     }
 
     return axios
-      .get(`${API_URL}/characters`, {
-        params: {
-          apikey: API_KEY,
-          limit,
-          offset
-        }
-      })
+      .get(`${API_URL}/characters`, options)
       .then(res => res.data.data)
       .then(data => {
-        localStorage[`characters-${page}`] = JSON.stringify(data);
+        if (!search) {
+          localStorage[`characters-${page}`] = JSON.stringify(data);
+        }
         return data;
       });
   },

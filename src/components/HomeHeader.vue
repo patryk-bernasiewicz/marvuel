@@ -12,6 +12,24 @@
           through a curated list of fans' favorite characters.
         </p>
       </div>
+      <div
+        class="header-attribution absolute bottom-0 right-0 text-right text-white text-xs opacity-75"
+      >
+        Image by
+        <a
+          target="_blank"
+          href="https://pixabay.com/users/ralpoonvast-2164607/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1239698"
+        >
+          Ralph Leonard Poon
+        </a>
+        from
+        <a
+          target="_blank"
+          href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1239698"
+        >
+          Pixabay
+        </a>
+      </div>
     </div>
     <picture>
       <source
