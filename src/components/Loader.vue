@@ -6,8 +6,7 @@
 
 <script>
 export default {
-  name: 'loader',
-  props: ['class']
+  name: 'loader'
 };
 </script>
 
