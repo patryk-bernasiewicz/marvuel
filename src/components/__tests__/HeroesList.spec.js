@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import HeroesList from '@/components/HeroesList.vue';
-import { heroes } from '../../mock-data';
+import { heroes } from '@/test-helpers/mock-data';
 
 describe('`HeroesList` component', () => {
   let wrapper;

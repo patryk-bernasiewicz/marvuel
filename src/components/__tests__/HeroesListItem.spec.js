@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import HeroesListItem from '@/components/HeroesListItem.vue';
-import { heroes } from '../../mock-data';
+import { heroes } from '@/test-helpers/mock-data';
 
 describe('`HeroItem` component', () => {
   let wrapper;
@@ -9,6 +9,7 @@ describe('`HeroItem` component', () => {
   const mount = () => {
     if (!wrapper) {
       wrapper = shallowMount(HeroesListItem, {
+        stubs: ['router-link'],
         propsData: { ...props }
       });
     }
