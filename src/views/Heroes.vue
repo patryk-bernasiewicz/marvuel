@@ -39,7 +39,7 @@ export default {
       this.searchTimer = setTimeout(async () => {
         await this.$store.dispatch('RESET_HEROES');
         this.$store.dispatch('FETCH_HEROES', search);
-      }, 200);
+      }, 750);
     }
   },
   computed: {
