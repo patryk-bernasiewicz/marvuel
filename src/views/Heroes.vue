@@ -1,12 +1,9 @@
 <template>
   <div class="heroes">
     <HomeHeader />
+
     <main class="my-4">
       <HeroesList />
-
-      <div v-if="store.isLoading" class="text-lg font-extrabold">
-        Heroes are coming...
-      </div>
 
       <div v-if="store.error" class="text-lg font-extrabold text-red-600">
         Heroes are unreachable at the moment.

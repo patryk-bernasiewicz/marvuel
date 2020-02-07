@@ -10,54 +10,52 @@ export default {
   },
   getters: {},
   mutations: {
-    STORE_HEROES: (state, heroes) => {
-      heroes.forEach(hero => state.heroes.push(hero));
+    FETCH_PAGE_PENDING: state => {
+      console.log('FETCH_PAGE_PENDING', state.page);
+      state.isLoading = true;
     },
-    SET_LOADING: (state, loading) => {
-      state.isLoading = loading;
+    FETCH_PAGE_SUCCESS: (state, data) => {
+      console.log('FETCH_PAGE_SUCCESS', state.page);
+      data.results.forEach(hero => state.heroes.push(hero));
+      if (!state.totalPages) {
+        state.totalPages = Math.ceil(data.total / 21);
+      }
+      state.error = null;
+      state.isLoading = false;
+      state.page = state.page + 1;
     },
-    SET_ERROR(state, { error }) {
+    FETCH_PAGE_ERROR: (state, error) => {
+      console.log('FETCH_PAGE_ERROR', state.page);
+      state.isLoading = false;
       state.error = error;
-    },
-    NEXT_PAGE(state) {
-      state.page++;
-    },
-    SET_TOTAL_PAGES(state, total) {
-      state.totalPages = total;
     }
   },
   actions: {
     async FETCH_HEROES({ commit, state }) {
-      return new Promise(async resolve => {
-        let page = state.page;
+      // exit if already loading something
+      if (state.isLoading) {
+        return;
+      }
 
-        if (page >= state.totalPages) {
-          commit('SET_LOADING', true);
+      commit('FETCH_PAGE_PENDING');
 
-          const cachedHeroes = localStorage.getItem('heroes');
-          if (cachedHeroes) {
-            const cache = JSON.parse(cachedHeroes);
-            if (cache[`page-${page}`]) {
-              commit('STORE_HEROES', { heroes: cache[`page-${page}`] });
-              commit('SET_LOADING', false);
-              commit('NEXT_PAGE');
-              resolve();
-              return;
-            }
-          }
+      await new Promise(resolve => setTimeout(() => resolve(), 5000));
 
-          try {
-            const heroes = await api.fetchHeroes(page);
-            commit('STORE_HEROES', heroes.results);
-            commit('NEXT_PAGE');
-          } catch (err) {
-            commit('SET_ERROR', err);
-          } finally {
-            commit('SET_LOADING', false);
-            resolve();
-          }
+      try {
+        const data = await api.fetchHeroes(state.page);
+
+        if (data) {
+          commit('FETCH_PAGE_SUCCESS', data);
+        } else {
+          await api.clearData();
+          commit(
+            'FETCH_PAGE_ERROR',
+            new Error('No data retrieved! Cache has been erased.')
+          );
         }
-      });
+      } catch (err) {
+        commit('FETCH_PAGE_ERROR', err);
+      }
     }
   }
 };

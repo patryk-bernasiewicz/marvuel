@@ -39,14 +39,4 @@ describe('`HeroesList` component', () => {
       expect(list.findAll('li').length).toEqual(heroes.length);
     });
   });
-
-  describe('when `heroes` is present in state and empty', () => {
-    it('renders a `p` element with message "No heroes to display!"', () => {
-      store = { heroes: [] };
-      const message = mount().find('.heroes-message');
-      expect(message.exists()).toBe(true);
-      expect(message.find('p').exists()).toBe(true);
-      expect(message.find('p').text()).toEqual('No heroes to display!');
-    });
-  });
 });
