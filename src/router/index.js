@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Heroes from '@/views/Heroes.vue';
-import HeroDetails from '@/views/HeroDetails.vue';
+
+const HeroDetails = () => import('@/views/HeroDetails.vue');
 
 Vue.use(VueRouter);
 

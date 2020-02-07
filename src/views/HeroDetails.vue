@@ -54,14 +54,17 @@
 </template>
 
 <script>
-import HeroComics from '@/components/HeroComics.vue';
+// import HeroComics from '@/components/HeroComics.vue';
 import Loader from '@/components/Loader.vue';
 
 import store from '../store';
 
 export default {
   name: 'herodetails',
-  components: { Loader, HeroComics },
+  components: {
+    Loader,
+    HeroComics: () => import('@/components/HeroComics.vue')
+  },
   async mounted() {
     await this.$store.dispatch('FETCH_DETAILS', this.$route.params.id);
     await this.$store.dispatch('FETCH_COMICS', this.$route.params.id);
